@@ -1,0 +1,51 @@
+{
+  "name": "js-api-router",
+  "version": "0.1.1",
+  "description": "Api Router",
+  "keywords": [
+    "web",
+    "api"
+  ],
+  "license": "MIT",
+  "author": "Alexander Lonberg <alexlonberg@gmail.com>",
+  "homepage": "https://github.com/AlexLonberg/js-api-router",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexLonberg/js-api-router.git"
+  },
+  "scripts": {
+    "test": "vitest run --coverage --config vitest.config.ts",
+    "test:browser": "vitest run --config vitest.browser.config.ts",
+    "predist": "node ./scripts/dist.js",
+    "dist": "tsc --project tsconfig.dist.json",
+    "ts-check": "tsc --noEmit --project tsconfig.dist.json"
+  },
+  "peerDependencies": {
+    "js-base-error": "^0.2.0",
+    "ts-interface-core": "^0.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "@stylistic/eslint-plugin": "^5.2.2",
+    "@types/ws": "^8.18.1",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.31.0",
+    "nodejs-pkg-tools": "^0.5.0",
+    "nodejs-simple-http-server": "^0.1.0",
+    "playwright": "^1.54.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0",
+    "vitest": "^3.2.4",
+    "ws": "^8.18.3"
+  },
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "main": "./src/index.ts"
+}
