@@ -27,23 +27,23 @@ type URecordToEntries<T extends Record<string, any>> = { [K in keyof T]: [K, T[K
 /**
  * Непустая строка.
  */
-type TNonemptyString = string & { __TNonemptyString: true }
+type TNonemptyString = string & { __TNonemptyString: never }
 /**
  * `number >= 0`.
  */
-type TNonNegNumber = number & { __TNonNegNumber: true }
+type TNonNegNumber = number & { __TNonNegNumber: never }
 /**
  * `number > 0`.
  */
-type TPositiveNumber = number & { __TPositiveNumber: true }
+type TPositiveNumber = number & { __TPositiveNumber: never }
 /**
  * `integer >= 0`.
  */
-type TNonNegInteger = number & { __TNonNegInteger: true }
+type TNonNegInteger = number & { __TNonNegInteger: never }
 /**
  * `integer > 0`.
  */
-type TPositiveInteger = number & { __TPositiveInteger: true }
+type TPositiveInteger = number & { __TPositiveInteger: never }
 
 /**
  * `number >= 0`.
@@ -104,7 +104,7 @@ function positiveIntegerOrNull (value?: any | TPositiveInteger): null | TPositiv
 /**
  * `number === 0|1`.
  */
-type TNumericBool = number & { __TNumericBool: true }
+type TNumericBool = number & { __TNumericBool: never }
 
 /**
  * `number === 0|1`.
@@ -123,7 +123,7 @@ function numericBoolOrNull (value: any): null | TNumericBool {
 /**
  * Функция получения `number > 0`.
  */
-type TFnRetryDelay = ((attempt: number) => TPositiveNumber) & { __TFnRetryDelay: true }
+type TFnRetryDelay = ((attempt: number) => TPositiveNumber) & { __TFnRetryDelay: never }
 
 /**
  * Возвращает функцию получения `delay` или `null`.
