@@ -7,7 +7,6 @@ test('error', () => {
   // Явное приведение
   const asString = message.toString()
   const expectedString = 'name: ApiRouter.UnknownError\n' +
-    'code: 0\n' +
     'message: url http//some.site'
   expect(asString).toBe(expectedString)
 
