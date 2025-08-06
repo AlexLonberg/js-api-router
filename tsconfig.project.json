@@ -43,8 +43,8 @@
     "src/**/*.ts"
   ],
   "files": [
-    "scripts/dist.js",
-    "eslint.config.js",
+    // "scripts/dist.js",
+    // "eslint.config.js",
     "vitest.config.ts",
     "vitest.browser.config.ts"
   ],

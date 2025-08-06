@@ -7,15 +7,23 @@ import type {
   TNumericBool,
   TFnRetryDelay,
 } from '../types.js'
-import type { ApiRouterError, TimeoutError } from '../errors.js'
+import type {
+  ApiRouterError,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  TimeoutError
+} from '../errors.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MiddlewareLike } from '../interfaces/MiddlewareLike.js'
 import type { ContextFactoryLike, TContextConstructor } from '../interfaces/ContextLike.js'
 import type { TMiddlewareDef, TMiddlewareInstanceRef, TMiddlewareRef } from '../middlewares/Middleware.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { NamedAsyncQueue } from '../libs/AsyncQueue.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { IEnvironment } from '../Environment.js'
 import type { HeadersConfig } from './HeadersConfig.js'
 import type { RequestInitConfig, TRequestInitOptions } from './RequestInitConfig.js'
 import type { EndpointPresetConfig } from './EndpointConfig.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { EndpointConfigRegistry } from './registries.js'
 import type { PathComponents } from './PathComponents.js'
 import type { TUrlFragments, UrlConfig } from './UrlConfig.js'

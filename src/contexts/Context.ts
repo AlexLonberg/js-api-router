@@ -1,6 +1,7 @@
 import { interfaceMarker } from 'ts-interface-core'
 import { isFunction, isNonemptyString, safeToJson } from '../utils.js'
 import { ConfigureError, errorDetails } from '../errors.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MiddlewareLike } from '../interfaces/MiddlewareLike.js'
 import { type TContextConstructor, ContextLike, ContextFactoryLike } from '../interfaces/ContextLike.js'
 import { RegistryBase } from '../libs/RegistryBase.js'

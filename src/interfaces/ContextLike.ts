@@ -1,4 +1,8 @@
-import { type interfaceImplements, type interfaceDefineImplementInterfaces, interfaceDefineHasInstanceMarker } from 'ts-interface-core'
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type interfaceImplements, type interfaceDefineImplementInterfaces,
+  interfaceDefineHasInstanceMarker
+} from 'ts-interface-core'
 import type { EndpointConfig } from '../configs/EndpointConfig.js'
 import type { TResponse } from '../types.js'
 

@@ -8,14 +8,15 @@ import {
   type TMfpFrameType,
   MFP_SERVICE_CODES,
   type TMfpServiceCodes,
-  type TMfpPartBin,
   type TMfpService,
   type TMfpMessage,
   type TMfpRequest,
   type TMfpBinary,
   type TMfpResponse,
   type TMfpDecodedFrame,
-  type TMfpDecodedHeader
+  type TMfpDecodedHeader,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type TMfpPartBin,
 } from './types.js'
 
 const protoHeader: TMfpDecodedHeader = Object.freeze({

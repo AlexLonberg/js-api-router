@@ -1,5 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ContextLike } from '../interfaces/ContextLike.js'
-import { type MiddlewareLike, Middleware } from '../interfaces/MiddlewareLike.js'
+import {
+  Middleware,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type MiddlewareLike,
+} from '../interfaces/MiddlewareLike.js'
 
 /**
  * Заглушка для {@link MiddlewareLike}.

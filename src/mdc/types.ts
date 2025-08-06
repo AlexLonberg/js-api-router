@@ -1,11 +1,21 @@
-import { interfaceDefineHasInstanceMarker, interfaceImplements } from 'ts-interface-core'
+import {
+  interfaceDefineHasInstanceMarker,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type interfaceImplements
+} from 'ts-interface-core'
 import type { JsonLike, UOptional, TPositiveInteger, TNonemptyString, TResponse } from '../types.js'
 import type { ApiRouterError } from '../errors.js'
 import type { BinaryTransportLike } from '../interfaces/BinaryTransportLike.js'
 import type { TWebSocketConnectorOptions } from '../ws/types.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { WebSocketConnector } from '../ws/WebSocketConnector.js'
-import type { MfpFramer, TMfpFramerOptions } from '../mfp/MfpFramer.js'
 import type {
+  TMfpFramerOptions,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  MfpFramer
+} from '../mfp/MfpFramer.js'
+import type {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TMdpMessageBaseOptions,
   TMdpMessageOptions,
   TMdpDecodedService,
@@ -16,7 +26,9 @@ import type {
   TMdpDecodedData
 } from '../mdp/types.js'
 import type { MdpFramer } from '../mdp/MdpFramer.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MdpEndpoint } from './MdpEndpoint.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MdpEndpointDispatcher } from './MdpEndpointDispatcher.js'
 
 type TMdpTimeoutOptions = {

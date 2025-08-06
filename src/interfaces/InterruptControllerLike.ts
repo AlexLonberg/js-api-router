@@ -1,4 +1,8 @@
-import { type interfaceImplements, interfaceDefineHasInstanceMarker } from 'ts-interface-core'
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type interfaceImplements,
+  interfaceDefineHasInstanceMarker
+} from 'ts-interface-core'
 import type { AbortError, TimeoutError } from '../errors.js'
 
 /**

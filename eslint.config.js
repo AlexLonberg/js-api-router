@@ -42,18 +42,16 @@ export default tsEslint.config(
       ],
       // Правила для JS путают сигнатуры типов(например функций) с реальными, их следует отключить
       'no-unused-vars': 'off',
-      // Не дает использовать типы в JSDoc
-      // '@typescript-eslint/no-unused-vars': ['error', {
-      //   vars: 'all',
-      //   varsIgnorePattern: '^_',
-      //   args: 'all',
-      //   argsIgnorePattern: '^_',
-      //   caughtErrors: 'all',
-      //   caughtErrorsIgnorePattern: '^_'
-      // }],
+      '@typescript-eslint/no-unused-vars': ['error', {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_'
+      }],
       // Не дает изменить catch (e) { e = MyError }
       'no-ex-assign': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
       // Не дает использовать type и предлагает явно interface
       '@typescript-eslint/consistent-type-definitions': 'off',
       // Требовать импорта типов как 'import {type Foo} from ...'

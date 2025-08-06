@@ -1,5 +1,11 @@
-import { interfaceDefineHasInstanceMarker, interfaceImplements } from 'ts-interface-core'
+import {
+  interfaceDefineHasInstanceMarker,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type interfaceImplements
+} from 'ts-interface-core'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ApiRouterError } from '../errors.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { TEndpointBaseConfig } from '../configs/types.js'
 import type { ContextLike } from './ContextLike.js'
 

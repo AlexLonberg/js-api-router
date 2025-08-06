@@ -29,7 +29,7 @@ class WebSocketWrapper extends BinaryTransportLike<ArrayBuffer, ArrayBuffer> {
         const data = nodeBufferToArrayBuffer(rawData)
         this._receiveHandler('arraybuffer', data)
         return
-      } catch (e) { /**/ }
+      } catch (_) { /**/ }
     }
     this._stateHandler(BINARY_TRANSPORT_EVENT_NAMES.type, new DataTypeError(errorDetails.DataTypeError('Ошибка типа входящего сообщения')))
   }

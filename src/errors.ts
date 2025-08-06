@@ -18,40 +18,31 @@ import {
   // errorToString
 } from 'js-base-error'
 
-/** Коды ошибок. */
-const errorCodes = Object.freeze({
-  UnknownError: 0,
-  LogicError: 1,
-  ConfigureError: 2,
-  //
-  MethodAccessError: 3,
-  ProtocolError: 4,
-  StatusError: 5,
-  MissingRecipientError: 6,
-  //
-  DataTypeError: 7,
-  PackError: 8,
-  UnpackError: 9,
-  FrameEncodeError: 10,
-  FrameDecodeError: 11,
-  //
-  ConnectionError: 12,
-  SendError: 13,
-  ReceiveError: 14,
-  //
-  InterruptError: 15,
-  AbortError: 16,
-  TimeoutError: 17,
-} as const)
-/** Коды ошибок. */
-type TErrorCodes = typeof errorCodes
-/** Коды ошибок. */
-type TErrorCode = TErrorCodes[keyof TErrorCodes]
+const _errorNames = [
+  'ApiRouter.UnknownError', 'ApiRouter.LogicError', 'ApiRouter.ConfigureError',
+  'ApiRouter.MethodAccessError', 'ApiRouter.ProtocolError', 'ApiRouter.StatusError',
+  'ApiRouter.MissingRecipientError', 'ApiRouter.DataTypeError', 'ApiRouter.PackError',
+  'ApiRouter.UnpackError', 'ApiRouter.FrameEncodeError', 'ApiRouter.FrameDecodeError',
+  'ApiRouter.ConnectionError', 'ApiRouter.SendError', 'ApiRouter.ReceiveError',
+  'ApiRouter.InterruptError', 'ApiRouter.AbortError', 'ApiRouter.TimeoutError'
+] as const
 
-const code2Name = Object.freeze(new Map(Object.entries(errorCodes).map(([name, code]) => [code, name])))
-function errorNameByCode (code: TErrorCode): string {
-  const name = code2Name.get(code)
-  return `ApiRouter.${name ?? ''}`
+type TErrorName = (typeof _errorNames)[number] // 'ApiRouter.UnknownError' | 'ApiRouter.LogicError' | 'ApiRouter.ConfigureError' | 'ApiRouter.MethodAccessError' | 'ApiRouter.ProtocolError' | 'ApiRouter.StatusError' | 'ApiRouter.MissingRecipientError' | 'ApiRouter.DataTypeError' | 'ApiRouter.PackError' | 'ApiRouter.UnpackError' | 'ApiRouter.FrameEncodeError' | 'ApiRouter.FrameDecodeError' | 'ApiRouter.ConnectionError' | 'ApiRouter.SendError' | 'ApiRouter.ReceiveError' | 'ApiRouter.InterruptError' | 'ApiRouter.AbortError' | 'ApiRouter.TimeoutError'
+
+/**
+ * Проверяет, является ли имя ошибки допустимым.
+ *
+ * @param name Предполагаемое имя ошибки.
+ */
+function isErrorName (name: any): name is TErrorName {
+  return _errorNames.includes(name)
+}
+
+function _wrapErrorLikeWithCause (cause: object): IErrorLike {
+  return createErrorLike({
+    name: 'ApiRouter.UnknownError',
+    cause
+  })
 }
 
 /**
@@ -65,12 +56,8 @@ function errorNameByCode (code: TErrorCode): string {
  */
 function ensureErrorLike<T extends IErrorLike> (maybeError: any): T {
   const err = ensureErrorLike_(maybeError)
-  if (!code2Name.has(err.code)) {
-    err.code = 0
-  }
-  const name = errorNameByCode(err.code)
-  if (err.name !== name) {
-    err.name = name
+  if (!isErrorName(err.name)) {
+    return _wrapErrorLikeWithCause(err) as T
   }
   return err as T
 }
@@ -78,7 +65,7 @@ function ensureErrorLike<T extends IErrorLike> (maybeError: any): T {
 /**
  * Детали ошибки с кодом и описанием.
  */
-interface IErrorDetail extends IErrorDetail_<TErrorCode> {
+interface IErrorDetail extends IErrorDetail_ {
   /**
    * Статус ответа.
    */
@@ -97,7 +84,11 @@ interface IErrorDetail extends IErrorDetail_<TErrorCode> {
 /**
  * Базовый интерфейс деталей ошибок.
  */
-interface IErrorLike extends IErrorLike_<TErrorCode>, IErrorDetail { }
+interface IErrorLike extends IErrorLike_, IErrorDetail {
+  status?: number
+  url?: string
+  data?: unknown
+}
 
 /**
  * Предопределенные описания ошибок.
@@ -105,48 +96,42 @@ interface IErrorLike extends IErrorLike_<TErrorCode>, IErrorDetail { }
 const errorDetails = Object.freeze({
   UnknownError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.UnknownError),
-      code: errorCodes.UnknownError,
+      name: 'ApiRouter.UnknownError',
       message,
       cause
     })
   },
   LogicError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.LogicError),
-      code: errorCodes.LogicError,
+      name: 'ApiRouter.LogicError',
       message,
       cause
     })
   },
   ConfigureError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.ConfigureError),
-      code: errorCodes.ConfigureError,
+      name: 'ApiRouter.ConfigureError',
       message,
       cause
     })
   },
   MethodAccessError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.MethodAccessError),
-      code: errorCodes.MethodAccessError,
+      name: 'ApiRouter.MethodAccessError',
       message,
       cause
     })
   },
   ProtocolError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.ProtocolError),
-      code: errorCodes.ProtocolError,
+      name: 'ApiRouter.ProtocolError',
       message,
       cause
     })
   },
   StatusError (status: number, url: string, message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.StatusError),
-      code: errorCodes.StatusError,
+      name: 'ApiRouter.StatusError',
       status,
       url,
       message,
@@ -155,96 +140,84 @@ const errorDetails = Object.freeze({
   },
   MissingRecipientError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.MissingRecipientError),
-      code: errorCodes.MissingRecipientError,
+      name: 'ApiRouter.MissingRecipientError',
       message,
       cause
     })
   },
   DataTypeError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.DataTypeError),
-      code: errorCodes.DataTypeError,
+      name: 'ApiRouter.DataTypeError',
       message,
       cause
     })
   },
   PackError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.PackError),
-      code: errorCodes.PackError,
+      name: 'ApiRouter.PackError',
       message,
       cause
     })
   },
   UnpackError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.UnpackError),
-      code: errorCodes.UnpackError,
+      name: 'ApiRouter.UnpackError',
       message,
       cause
     })
   },
   FrameEncodeError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.FrameEncodeError),
-      code: errorCodes.FrameEncodeError,
+      name: 'ApiRouter.FrameEncodeError',
       message,
       cause
     })
   },
   FrameDecodeError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.FrameDecodeError),
-      code: errorCodes.FrameDecodeError,
+      name: 'ApiRouter.FrameDecodeError',
       message,
       cause
     })
   },
   ConnectionError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.ConnectionError),
-      code: errorCodes.ConnectionError,
+      name: 'ApiRouter.ConnectionError',
       message,
       cause
     })
   },
   SendError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.SendError),
-      code: errorCodes.SendError,
+      name: 'ApiRouter.SendError',
       message,
       cause
     })
   },
   ReceiveError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.ReceiveError),
-      code: errorCodes.ReceiveError,
+      name: 'ApiRouter.ReceiveError',
       message,
       cause
     })
   },
   InterruptError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.InterruptError),
-      code: errorCodes.InterruptError,
+      name: 'ApiRouter.InterruptError',
       message,
       cause
     })
   },
   AbortError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.AbortError),
-      code: errorCodes.AbortError,
+      name: 'ApiRouter.AbortError',
       message,
       cause
     })
   },
   TimeoutError (message?: undefined | null | string, cause?: undefined | null | unknown): IErrorLike {
     return createErrorLike({
-      name: errorNameByCode(errorCodes.TimeoutError),
-      code: errorCodes.TimeoutError,
+      name: 'ApiRouter.TimeoutError',
       message,
       cause
     })
@@ -371,9 +344,8 @@ class AbortError extends InterruptError { }
 class TimeoutError extends InterruptError { }
 
 export {
-  errorCodes,
-  type TErrorCodes,
-  type TErrorCode,
+  type TErrorName,
+  isErrorName,
   ensureErrorLike,
   type IErrorDetail,
   type IErrorLike,

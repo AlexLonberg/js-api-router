@@ -1,4 +1,5 @@
 import type { TBinaryTransportReceiveHandler, TBinaryTransportStateHandler } from '../interfaces/BinaryTransportLike.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { WebSocketConnector } from './WebSocketConnector.js'
 
 /**

@@ -1,6 +1,7 @@
 import type { UOptional } from './types.js'
 import { isNonemptyString, isObject, isPlainObject, safeToJson } from './utils.js'
 import { NamedAsyncQueue } from './libs/AsyncQueue.js'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MiddlewareLike } from './interfaces/MiddlewareLike.js'
 import type { ContextLike, TContextConstructor } from './interfaces/ContextLike.js'
 import type {

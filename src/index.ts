@@ -332,9 +332,8 @@ export {
   Environment
 } from './Environment.js'
 export {
-  errorCodes,
-  type TErrorCodes,
-  type TErrorCode,
+  type TErrorName,
+  isErrorName,
   ensureErrorLike,
   type IErrorDetail,
   type IErrorLike,

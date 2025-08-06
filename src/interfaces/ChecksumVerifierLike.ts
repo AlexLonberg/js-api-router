@@ -1,4 +1,8 @@
-import { type interfaceImplements, interfaceDefineHasInstance } from 'ts-interface-core'
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type interfaceImplements,
+  interfaceDefineHasInstance
+} from 'ts-interface-core'
 
 const CHECKSUM_VERIFIER_MARKER = Symbol('CHECKSUM_VERIFIER_MARKER')
 

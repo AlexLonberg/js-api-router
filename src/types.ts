@@ -1,4 +1,8 @@
-import type { TErrorCodes, IErrorLike, ApiRouterError } from './errors.js'
+import type {
+  ApiRouterError,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  IErrorLike
+} from './errors.js'
 
 type Nullish = undefined | null
 type Primitive = undefined | null | boolean | number | string | bigint | symbol
@@ -138,11 +142,7 @@ function fnRetryDelayOrNull (value?: any | number | ((attempt: number) => number
  * Результат обработанного ответа.
  *
  * Если запрос завершился ошибкой или сервер прислал ошибку, пользовательский обработчик может установить шаблонный
- * {@link IErrorLike} с собственными кодами и сообщениями.
- *
- * Пример:
- *  + Прерывание запроса установит код {@link TErrorCodes.AbortError}.
- *  + Пользовательский {@link ResponseHandler.handle()} может прочитать тело ошибки и обновить поля {@link IErrorLike}.
+ * {@link IErrorLike} с собственными сообщениями.
  */
 type TResponse<T> =
   { ok: true, value: T, error?: undefined | null } |
